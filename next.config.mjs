@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // SVG handling configuration
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
@@ -28,7 +29,15 @@ const nextConfig = {
     return config;
   },
 
-  // ...other config
+  // Allow external images
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "miro.medium.com",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

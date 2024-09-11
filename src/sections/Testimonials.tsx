@@ -1,82 +1,74 @@
 "use client";
-import avatar1 from "@/assets/avatar-1.png";
-import avatar2 from "@/assets/avatar-2.png";
-import avatar3 from "@/assets/avatar-3.png";
-import avatar4 from "@/assets/avatar-4.png";
-import avatar5 from "@/assets/avatar-5.png";
-import avatar6 from "@/assets/avatar-6.png";
-import avatar7 from "@/assets/avatar-7.png";
-import avatar8 from "@/assets/avatar-8.png";
-import avatar9 from "@/assets/avatar-9.png";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
 import { motion } from "framer-motion";
 import React from "react";
 
-const testimonials = [
+// Dummy data for GitHub repositories
+const repositories = [
   {
-    text: "As a seasoned designer always on the lookout for innovative tools, Framer.com instantly grabbed my attention.",
-    imageSrc: avatar1.src,
-    name: "Jamie Rivera",
-    username: "@jamietechguru00",
+    name: "Repo One",
+    commits: 120,
+    owner: "Owner One",
+    avatarUrl: "/path/to/avatar1.png", // Replace with actual paths or URLs
   },
   {
-    text: "Our team's productivity has skyrocketed since we started using this tool. ",
-    imageSrc: avatar2.src,
-    name: "Josh Smith",
-    username: "@jjsmith",
+    name: "Repo Two",
+    commits: 85,
+    owner: "Owner Two",
+    avatarUrl: "/path/to/avatar2.png",
   },
   {
-    text: "This app has completely transformed how I manage my projects and deadlines.",
-    imageSrc: avatar3.src,
-    name: "Morgan Lee",
-    username: "@morganleewhiz",
+    name: "Repo Three",
+    commits: 150,
+    owner: "Owner Three",
+    avatarUrl: "/path/to/avatar3.png",
   },
   {
-    text: "I was amazed at how quickly we were able to integrate this app into our workflow.",
-    imageSrc: avatar4.src,
-    name: "Casey Jordan",
-    username: "@caseyj",
+    name: "Repo Four",
+    commits: 200,
+    owner: "Owner Four",
+    avatarUrl: "/path/to/avatar4.png",
   },
   {
-    text: "Planning and executing events has never been easier. This app helps me keep track of all the moving parts, ensuring nothing slips through the cracks.",
-    imageSrc: avatar5.src,
-    name: "Taylor Kim",
-    username: "@taylorkimm",
+    name: "Repo Five",
+    commits: 95,
+    owner: "Owner Five",
+    avatarUrl: "/path/to/avatar5.png",
   },
   {
-    text: "The customizability and integration capabilities of this app are top-notch.",
-    imageSrc: avatar6.src,
-    name: "Riley Smith",
-    username: "@rileysmith1",
+    name: "Repo Six",
+    commits: 110,
+    owner: "Owner Six",
+    avatarUrl: "/path/to/avatar6.png",
   },
   {
-    text: "Adopting this app for our team has streamlined our project management and improved communication across the board.",
-    imageSrc: avatar7.src,
-    name: "Jordan Patels",
-    username: "@jpatelsdesign",
+    name: "Repo Seven",
+    commits: 130,
+    owner: "Owner Seven",
+    avatarUrl: "/path/to/avatar7.png",
   },
   {
-    text: "With this app, we can easily assign tasks, track progress, and manage documents all in one place.",
-    imageSrc: avatar8.src,
-    name: "Sam Dawson",
-    username: "@dawsontechtips",
+    name: "Repo Eight",
+    commits: 140,
+    owner: "Owner Eight",
+    avatarUrl: "/path/to/avatar8.png",
   },
   {
-    text: "Its user-friendly interface and robust features support our diverse needs.",
-    imageSrc: avatar9.src,
-    name: "Casey Harper",
-    username: "@casey09",
+    name: "Repo Nine",
+    commits: 160,
+    owner: "Owner Nine",
+    avatarUrl: "/path/to/avatar9.png",
   },
 ];
 
-const firstColumn = testimonials.slice(0, 3);
-const secondColumn = testimonials.slice(3, 6);
-const thirdColumn = testimonials.slice(6, 9);
+const firstColumn = repositories.slice(0, 3);
+const secondColumn = repositories.slice(3, 6);
+const thirdColumn = repositories.slice(6, 9);
 
-const TestimonialsColumn = (props: {
+const RepositoryColumn = (props: {
   className?: string;
-  testimonials: typeof testimonials;
+  repositories: typeof repositories;
   duration?: number;
 }) => (
   <div className={props.className}>
@@ -94,22 +86,24 @@ const TestimonialsColumn = (props: {
     >
       {[...new Array(2)].fill(0).map((_, index) => (
         <React.Fragment key={index}>
-          {props.testimonials.map(({ text, imageSrc, name, username }) => (
-            <div className="card">
-              <div>{text}</div>
+          {props.repositories.map(({ name, commits, owner, avatarUrl }) => (
+            <div className="card" key={name}>
+              <div>{name}</div>
               <div className="flex items-center gap-2 mt-5">
                 <Image
-                  src={imageSrc}
-                  alt={name}
+                  src={avatarUrl}
+                  alt={owner}
                   width={40}
                   height={40}
                   className="h-10 w-10 rounded-full"
                 />
                 <div className="flex flex-col">
                   <div className="font-medium tracking-tight leading-5">
-                    {name}
+                    {owner}
                   </div>
-                  <div className="leading-5 tracking-tight">{username}</div>
+                  <div className="leading-5 tracking-tight">
+                    {commits} commits
+                  </div>
                 </div>
               </div>
             </div>
@@ -126,23 +120,23 @@ export const Testimonials = () => {
       <div className="container">
         <div className="section-heading">
           <div className="flex justify-center">
-            <div className="tag">Testimonials</div>
+            <div className="tag">Repositories</div>
           </div>
-          <h2 className="section-title mt-5">What our users say</h2>
+          <h2 className="section-title mt-5">Our Top Repositories</h2>
           <p className="section-description mt-5">
-            From intuitive design to powerful features, our app has become an
-            essential tool for users around the world.
+            Explore our repositories and see how many commits each has
+            contributed to.
           </p>
         </div>
         <div className="flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-[738px] overflow-hidden">
-          <TestimonialsColumn testimonials={firstColumn} duration={15} />
-          <TestimonialsColumn
-            testimonials={secondColumn}
+          <RepositoryColumn repositories={firstColumn} duration={15} />
+          <RepositoryColumn
+            repositories={secondColumn}
             className="hidden md:block"
             duration={19}
           />
-          <TestimonialsColumn
-            testimonials={thirdColumn}
+          <RepositoryColumn
+            repositories={thirdColumn}
             className="hidden lg:block"
             duration={17}
           />
